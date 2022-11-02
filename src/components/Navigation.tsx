@@ -52,9 +52,18 @@ function Navigation() {
 
 export default Navigation;
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.nav`
+  position: fixed;
+  bottom: 0;
+  width: 390px;
+
+  padding: 20px 0;
+
+  background-color: #e6e6e6;
+
   ul {
     display: flex;
+    justify-content: center;
     list-style: none;
     li {
       margin: 0 10px;

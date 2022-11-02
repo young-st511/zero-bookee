@@ -5,6 +5,8 @@ import Books from "../routes/Books";
 import Menu from "../routes/Menu";
 import Remittance from "../routes/Remittance";
 import Root from "../routes/root";
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +38,22 @@ const router = createBrowserRouter([
 ]);
 
 function AppRouter() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default AppRouter;
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  body {
+    margin: 0;
+    align-items: center;
+
+    font-family: SUIT
+  }
+`;
