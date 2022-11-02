@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 function Navigation() {
   return (
-    <>
+    <StyledWrapper>
       <ul>
         <li>
           <NavLink
@@ -45,8 +46,18 @@ function Navigation() {
           </NavLink>
         </li>
       </ul>
-    </>
+    </StyledWrapper>
   );
 }
 
 export default Navigation;
+
+const StyledWrapper = styled.div`
+  ul {
+    display: flex;
+    list-style: none;
+    li {
+      margin: 0 10px;
+    }
+  }
+`;

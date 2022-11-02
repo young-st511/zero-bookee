@@ -1,4 +1,8 @@
 :root {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+
   font-family: "SUIT", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
