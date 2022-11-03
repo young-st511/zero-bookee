@@ -1,5 +1,5 @@
 import React, { useState, SetStateAction } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { auth } from "../firebaseApp";
 import { signInWithEmailAndPassword as signIn } from "firebase/auth";
 
@@ -30,7 +30,7 @@ function LogInForm({ setIsLogInPage }: Props) {
   return (
     <StyledWrapper>
       <button onClick={() => setIsLogInPage(false)} className="back-button">
-        {"<-"}
+        {"←"}
       </button>
       <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
@@ -60,7 +60,6 @@ export default LogInForm;
 
 const StyledWrapper = styled.section`
   button.back-button {
-    /* font-family: SUIT; */
     font-feature-settings: "ss18";
   }
 `;
