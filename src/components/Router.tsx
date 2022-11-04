@@ -8,6 +8,9 @@ import Root from "../routes/root";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import SignInForm from "./SignInForm";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { auth } from "../firebaseApp";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +20,10 @@ const router = createBrowserRouter([
       {
         path: "auth",
         element: <Auth />,
-        children: [
-          {
-            path: "signIn",
-            element: <SignInForm />,
-          },
-        ],
+      },
+      {
+        path: "signIn",
+        element: <SignInForm />,
       },
       {
         path: "assets",
@@ -45,6 +46,26 @@ const router = createBrowserRouter([
 ]);
 
 function AppRouter() {
+  // const [init, setInit] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userObj, setUserObj] = useState<User | null>(null);
+  // const [isNaver, setIsNaver] = useState(false);
+
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log(user, "onAuth");
+  //       setIsLoggedIn(true);
+  //       setUserObj(user);
+  //     } else {
+  //       console.log("user signed out");
+  //       setUserObj(null);
+  //       setIsLoggedIn(false);
+  //     }
+  //     setInit(true);
+  //   });
+  // }, []);
+
   return (
     <>
       <GlobalStyle />

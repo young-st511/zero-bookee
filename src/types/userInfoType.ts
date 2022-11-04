@@ -5,6 +5,8 @@ export default interface UserInfoType extends CompanyInfoType {
   userKey: string;
   /** 유저 이메일 */
   userEmail: string;
+  /** 비밀번호 */
+  userPassword: string;
   /** 광고 수신 동의 */
   recievingAdAgree: boolean;
   /** 직급 */
