@@ -12,21 +12,21 @@
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
-    // "no-console": "off",
+    // "no-console": "warn",
     "no-unused-vars": "warn",
     "no-unreachable": "warn",
     "strict": ["error", "global"],
     "curly": "warn",
 
-    "prettier/prettier": "warn",
+    // "prettier/prettier": "warn",
 
     /* React Options */
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "react/prefer-stateless-function": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/prop-types": 0,
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": "off",
 
     /* React Hooks Options */
     "react-hooks/rules-of-hooks": "error",
