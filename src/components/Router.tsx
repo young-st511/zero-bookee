@@ -4,13 +4,17 @@ import Auth from "../routes/Auth";
 import Books from "../routes/Books";
 import Menu from "../routes/Menu";
 import Remittance from "../routes/Remittance";
-import Root from "../routes/root";
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import Root from "../routes/Root";
+import { ThemeProvider } from "styled-components";
 import SignInForm from "./SignInForm";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../firebaseApp";
+import { useRecoilState } from "recoil";
+import { theme } from "../themes";
+import GlobalStyle from "../styles/GlobalStyle.style";
+import { userAuthState } from "../recoil_state";
+import Loading from "./Loading";
 
 const router = createBrowserRouter([
   {
@@ -46,43 +50,41 @@ const router = createBrowserRouter([
 ]);
 
 function AppRouter() {
-  // const [init, setInit] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [userObj, setUserObj] = useState<User | null>(null);
-  // const [isNaver, setIsNaver] = useState(false);
+  const [init, setInit] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userAuthState);
+  const [userObj, setUserObj] = useState<User | null>(null);
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       console.log(user, "onAuth");
-  //       setIsLoggedIn(true);
-  //       setUserObj(user);
-  //     } else {
-  //       console.log("user signed out");
-  //       setUserObj(null);
-  //       setIsLoggedIn(false);
-  //     }
-  //     setInit(true);
-  //   });
-  // }, []);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        //! Test
+        console.log(user, "onAuth");
+
+        setIsLoggedIn(true);
+        setUserObj(user);
+      } else {
+        //! Test
+        console.log("user signed out");
+
+        setUserObj(null);
+        setIsLoggedIn(false);
+      }
+      setInit(true);
+    });
+  }, [setIsLoggedIn]);
 
   return (
     <>
-      <GlobalStyle />
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        {init ? (
+          <RouterProvider router={router} />
+        ) : (
+          <Loading text="제로부기에 오신 것을 환영합니다!" />
+        )}
+      </ThemeProvider>
     </>
   );
 }
 
 export default AppRouter;
-
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-  * {
-    font-family: SUIT;
-  }
-  body {
-    margin: 0;
-    align-items: center;
-  }
-`;

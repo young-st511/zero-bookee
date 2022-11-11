@@ -52,14 +52,16 @@ function LogInForm({ setIsLogInPage }: Props) {
         />
         <input type="submit" value="Log in" />
       </form>
+      
     </StyledWrapper>
   );
 }
 
-export default LogInForm;
+export default LogInForm;``
 
 const StyledWrapper = styled.section`
   button.back-button {
     font-feature-settings: "ss18";
+    
   }
 `;
