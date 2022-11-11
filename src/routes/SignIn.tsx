@@ -63,11 +63,15 @@ function SignInForm() {
         <ErrorMessage
           name={id}
           errors={errors}
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <p key={type}>{message}</p>
-            ))
+          render={
+            ({ message }) => (
+              <p key={"error"} className={"signin-error"}>
+                {message}
+              </p>
+            )
+            // messages &&
+            // Object.entries(messages).map(([type, message]) => (
+            //   <p key={type}>{message}</p>)
           }
         />
       </>
@@ -82,12 +86,9 @@ function SignInForm() {
       </Link>
       <h2>Sign In</h2>
       {/* {isNaver && <div>Naver 아이디와 연동</div>} */}
-      <p className="sign-in-error">Err: {error}</p>
-      <ErrorMessage
-        name={"companyName"}
-        errors={errors}
-        render={({ message }) => <p key={"error"}>{message}</p>}
-      />
+
+      {/* 파이어베이스 에러 */}
+      {error && <p className="sign-in-error">Err: {error}</p>}
 
       <Form autoSave="true" id="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
         {/* 회원 정보 */}
@@ -163,10 +164,22 @@ const Form = styled.form`
   input {
     display: block;
     width: 60vw;
-    margin: 2rem auto;
+    margin: 2rem auto 0 auto;
     padding: 1.5rem 2rem;
 
     color: ${(p) => p.theme.subFont};
+    background-color: #fefefe;
+    border: none;
     border-radius: ${(p) => p.theme.borderRadius};
+  }
+
+  .signin-error {
+    width: calc(60vw + 4rem);
+    margin: 0.5rem auto 0 auto;
+    padding: 0;
+
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: ${(p) => p.theme.errorColor};
   }
 `;

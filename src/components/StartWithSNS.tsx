@@ -42,7 +42,7 @@ function StartWithSNS() {
           Start with Naver
         </button>
 
-        <Link to={"../signIn"} className="to-sign-in">
+        <Link to={"/signIn"} className="to-sign-in">
           제로부기 아이디 만들기
         </Link>
       </div>
@@ -61,7 +61,7 @@ const StartWithSNSWrapper = styled.div<styleProps>`
   width: 80vw;
   top: ${({ isLogin }) => (isLogin ? "45vh" : "20vh")};
   left: 0;
-  margin: 10vh 5vw;
+  margin: 10vh 0vw;
 
   h3.startSNS {
     font-size: 3.2rem;

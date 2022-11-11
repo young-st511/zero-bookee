@@ -16,23 +16,20 @@ function Root() {
       if (location.pathname === "/") {
         navigate("/assets");
       }
-    } else if (!location.pathname.startsWith("/auth")) {
+    } else if (
+      location.pathname !== "/auth" &&
+      location.pathname !== "/signIn"
+    ) {
       navigate("/auth");
     }
   }, [isLoggedin, location.pathname, navigate]);
 
   return (
     <StyledWrapper>
-      {isLoggedin ? (
-        <>
-          <div className="outlet">
-            <Outlet />
-          </div>
-          <Navigation />
-        </>
-      ) : (
-        <Auth />
-      )}
+      <div className="outlet">
+        <Outlet />
+      </div>
+      {isLoggedin && <Navigation />}
     </StyledWrapper>
   );
 }
