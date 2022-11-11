@@ -52,12 +52,6 @@ function StartWithSNS() {
 
 export default StartWithSNS;
 
-// import { Dispatch, SetStateAction } from "react";
-
-// type StartWithSNSType = {
-//   isNaver: boolean;
-//   setIsNaver: Dispatch<SetStateAction<boolean>>;
-// };
 interface styleProps {
   isLogin: boolean;
 }
@@ -67,7 +61,7 @@ const StartWithSNSWrapper = styled.div<styleProps>`
   width: 80vw;
   top: ${({ isLogin }) => (isLogin ? "45vh" : "20vh")};
   left: 0;
-  margin: 10vh 0vw;
+  margin: 10vh 5vw;
 
   h3.startSNS {
     font-size: 3.2rem;

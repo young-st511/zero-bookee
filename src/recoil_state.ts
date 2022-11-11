@@ -3,7 +3,7 @@ import { atom } from "recoil";
 
 const logInPageState = atom({
   key: "logInPageState",
-  default: true,
+  default: false,
 });
 
 const userAuthState = atom({

@@ -39,9 +39,10 @@ function SignInForm() {
       );
       //! Test
       console.log(data);
-    } catch (error) {
-      if (error as Error) {
-        setError((error as Error).message);
+    } catch (err) {
+      if (err) {
+        const error = err as Error;
+        setError(error.message);
         console.log(error.message);
       }
     }

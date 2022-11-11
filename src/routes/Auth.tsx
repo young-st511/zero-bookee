@@ -1,19 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
-
 import StartWithSNS from "../components/StartWithSNS";
 import { Link, Outlet } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { logInPageState } from "../recoil_state";
 import LogInForm from "../components/LogInForm";
-import Test from "../Test";
 
 function Auth() {
   const [isLogInPage, setIsLogInPage] = useRecoilState(logInPageState);
 
   return (
     <StyledWrapper>
-      <Test />
       <h2 className="welcome">
         제로부기에 오신 것을
         <br />
@@ -25,11 +21,9 @@ function Auth() {
         </>
       ) : (
         <>
-          <div onClick={() => setIsLogInPage(true)}>
-            <Link to={"login"} className="to-log-in">
-              제로부기 아이디로 로그인
-            </Link>
-          </div>
+          <button className="to-log-in" onClick={() => setIsLogInPage(true)}>
+            제로부기 아이디로 로그인
+          </button>
         </>
       )}
 

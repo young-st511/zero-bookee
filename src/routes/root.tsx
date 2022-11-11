@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { userAuthState } from "../recoil_state";
 import Auth from "./Auth";
-import Test from "../Test";
 
 function Root() {
   const isLoggedin = useRecoilValue(userAuthState);
@@ -13,21 +12,18 @@ function Root() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (isLoggedin) {
-    //   if (location.pathname === "/") {
-    //     navigate("/assets");
-    //   }
-    // } else if (!location.pathname.startsWith("/auth")) {
-    //   navigate("/auth");
-    // }
+    if (isLoggedin) {
+      if (location.pathname === "/") {
+        navigate("/assets");
+      }
+    } else if (!location.pathname.startsWith("/auth")) {
+      navigate("/auth");
+    }
   }, [isLoggedin, location.pathname, navigate]);
 
   return (
     <StyledWrapper>
-      <div className="outlet">
-        <Outlet />
-      </div>
-      {/* {isLoggedin ? (
+      {isLoggedin ? (
         <>
           <div className="outlet">
             <Outlet />
@@ -36,7 +32,7 @@ function Root() {
         </>
       ) : (
         <Auth />
-      )} */}
+      )}
     </StyledWrapper>
   );
 }

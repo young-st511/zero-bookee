@@ -15,7 +15,6 @@ import { theme } from "../themes";
 import GlobalStyle from "../styles/GlobalStyle.style";
 import { userAuthState, userState } from "../recoil_state";
 import Loading from "./Loading";
-import LogInForm from "./LogInForm";
 
 const router = createBrowserRouter([
   {
@@ -25,12 +24,6 @@ const router = createBrowserRouter([
       {
         path: "auth",
         element: <Auth />,
-        children: [
-          {
-            path: "logIn",
-            element: <LogInForm />,
-          },
-        ],
       },
       {
         path: "signIn",
@@ -84,11 +77,11 @@ function AppRouter() {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <RouterProvider router={router} />
-        {/* {init ? (
+        {init ? (
+          <RouterProvider router={router} />
         ) : (
           <Loading text="제로부기에 오신 것을 환영합니다!" />
-        )} */}
+        )}
       </ThemeProvider>
     </>
   );

@@ -33,10 +33,17 @@ function LogInForm() {
     } catch (err) {
       const error = err as FirebaseError;
       if (error) {
-        setError(error?.message);
-        console.log(error?.message);
-        alert(error?.message);
+        switch (error.code) {
+          case "auth/invalid-email":
+            setError("이메일이 형식이 잘못되었습니다.");
+            break;
+
+          default:
+            setError(error.code);
+            break;
+        }
       }
+      console.log(error.message);
     }
   };
   const handleIDChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,9 +79,11 @@ function LogInForm() {
             value={password}
           />
         </div>
-        <p role={"alert"} className={"login-error"}>
-          Error:{error}
-        </p>
+        {error && (
+          <p role={"alert"} className={"login-error"}>
+            Error:{error}
+          </p>
+        )}
         <input className="login-submit" type="submit" value="Log in" />
       </form>
     </StyledWrapper>
@@ -88,7 +97,7 @@ interface StyledProp {
 }
 
 const StyledWrapper = styled.section<StyledProp>`
-  /* opacity: ${({ isLogin }) => (isLogin ? 1 : 0)}; */
+  opacity: ${({ isLogin }) => (isLogin ? 1 : 0)};
   .back-button {
     margin-top: 2rem;
     font-weight: 900;
@@ -124,6 +133,9 @@ const StyledWrapper = styled.section<StyledProp>`
     }
 
     .login-error {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1.6rem;
       color: ${(p) => p.theme.errorColor};
     }
   }
