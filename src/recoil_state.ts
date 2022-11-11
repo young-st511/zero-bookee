@@ -1,6 +1,11 @@
 import { User } from "firebase/auth";
 import { atom } from "recoil";
 
+const logInPageState = atom({
+  key: "logInPageState",
+  default: true,
+});
+
 const userAuthState = atom({
   key: "userAuthState",
   default: false,
@@ -11,4 +16,4 @@ const userState = atom<User | null>({
   default: null,
 });
 
-export { userState, userAuthState };
+export { logInPageState, userState, userAuthState };

@@ -1,23 +1,42 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { auth } from "../firebaseApp";
-import { signInWithEmailAndPassword as signIn } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import StyledInput from "../styles/StyledInput.style";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { logInPageState } from "../recoil_state";
+import { useNavigate } from "react-router-dom";
 
-type Props = {
-  setIsLogInPage: React.Dispatch<SetStateAction<boolean>>;
-};
-
-function LogInForm({ setIsLogInPage }: Props) {
+function LogInForm() {
   const [iD, setID] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string>();
+  const [IsLogInPage, setIsLogInPage] = useRecoilState(logInPageState);
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    setIsLogInPage(false);
+    navigate("../");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault;
-    if (iD != "" && password != "") {
-      const data = await signIn(auth, iD, password);
-      console.log(data);
-    } else {
-      throw new Error("ID 또는 Password가 비어있습니다!");
+    try {
+      if (iD != "" && password != "") {
+        const data = await signInWithEmailAndPassword(auth, iD, password);
+        //! Test
+        console.log(data);
+      } else {
+        throw new Error("ID 또는 Password가 비어있습니다!");
+      }
+    } catch (err) {
+      const error = err as FirebaseError;
+      if (error) {
+        setError(error?.message);
+        console.log(error?.message);
+        alert(error?.message);
+      }
     }
   };
   const handleIDChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,15 +47,15 @@ function LogInForm({ setIsLogInPage }: Props) {
   };
 
   return (
-    <StyledWrapper>
-      <button onClick={() => setIsLogInPage(false)} className="back-button">
+    <StyledWrapper isLogin={IsLogInPage}>
+      <button onClick={handleBackClick} className="back-button">
         {"←"}
       </button>
 
       <form onSubmit={handleSubmit}>
         <h2>Welcome back!</h2>
         <div className="login-input">
-          <input
+          <StyledInput
             name="email"
             type="text"
             placeholder="Email"
@@ -44,7 +63,7 @@ function LogInForm({ setIsLogInPage }: Props) {
             onChange={handleIDChange}
             value={iD}
           />
-          <input
+          <StyledInput
             name="password"
             type="password"
             placeholder="Password"
@@ -53,6 +72,9 @@ function LogInForm({ setIsLogInPage }: Props) {
             value={password}
           />
         </div>
+        <p role={"alert"} className={"login-error"}>
+          Error:{error}
+        </p>
         <input className="login-submit" type="submit" value="Log in" />
       </form>
     </StyledWrapper>
@@ -61,41 +83,48 @@ function LogInForm({ setIsLogInPage }: Props) {
 
 export default LogInForm;
 
-const StyledWrapper = styled.section`
+interface StyledProp {
+  isLogin: boolean;
+}
+
+const StyledWrapper = styled.section<StyledProp>`
+  /* opacity: ${({ isLogin }) => (isLogin ? 1 : 0)}; */
   .back-button {
+    margin-top: 2rem;
     font-weight: 900;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    margin: 5rem 3rem;
-    margin-top: 15rem;
+    margin: 5rem 0rem;
+    margin-top: 5rem;
+
+    .login-input {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
 
     h2 {
       margin-bottom: 2rem;
+      margin-left: 2rem;
     }
 
-    .login-input input {
-      width: 24rem;
-      height: 3rem;
-      margin: 0.4rem 0;
-      padding: 0.5rem 1rem;
-      color: #262626;
-      border: none;
-      border-radius: 1rem;
-    }
     .login-submit {
-      align-self: flex-end;
+      align-self: center;
       margin-top: 2rem;
-      margin-right: 3rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.8rem 1.6rem;
       background-color: ${(p) => p.theme.colors.sub};
       border: none;
       border-radius: ${(p) => p.theme.borderRadius};
 
       font-size: 1.6rem;
       font-weight: 700;
+    }
+
+    .login-error {
+      color: ${(p) => p.theme.errorColor};
     }
   }
 

@@ -18,36 +18,33 @@ type InputProps = {
 // type SignInFormType = { isNaver: boolean };
 
 //! React Hook Form 적용할 것!!
-//TODO 비밀번호 해싱하기
 //TODO 이미 있는 아이디일 경우 바로 로그인하기
 function SignInForm() {
   const [userInfo, setUserInfo] = useState<UserInfoType>({} as UserInfoType);
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserInfoType>();
 
-  const onSubmit: SubmitHandler<UserInfoType> = async (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<UserInfoType> = async (userInfo) => {
+    console.log(userInfo);
 
-    // e.preventDefault();
-    // console.log(userInfo);
-
-    // try {
-    //   const data = await createUser(
-    //     auth,
-    //     userInfo.userEmail,
-    //     userInfo.userPassword
-    //   );
-    //   //! Test
-    //   console.log(data);
-    // } catch (error: unknown) {
-    //   if ("message" in (error as Error)) {
-    //     setError((error as Error).message);
-    //   }
-    //   console.log(error);
-    // }
+    try {
+      const data = await createUser(
+        auth,
+        userInfo.userEmail,
+        userInfo.userPassword
+      );
+      //! Test
+      console.log(data);
+    } catch (error) {
+      if (error as Error) {
+        setError((error as Error).message);
+        console.log(error.message);
+      }
+    }
   };
 
   //# Input 컴포넌트
@@ -55,7 +52,10 @@ function SignInForm() {
     return (
       <>
         <input
-          {...register(id, { ...options, required: required ?? false })}
+          {...register(id, {
+            ...options,
+            required: required ? "필수 요소 입니다" : false,
+          })}
           placeholder={label}
           type={type || "text"}
         />
@@ -76,9 +76,17 @@ function SignInForm() {
 
   return (
     <SignInWrapper>
-      <Link to={"../auth"}>←</Link>
+      <Link to={"../auth"} className={"back-button"}>
+        ←
+      </Link>
       <h2>Sign In</h2>
       {/* {isNaver && <div>Naver 아이디와 연동</div>} */}
+      <p className="sign-in-error">Err: {error}</p>
+      <ErrorMessage
+        name={"companyName"}
+        errors={errors}
+        render={({ message }) => <p key={"error"}>{message}</p>}
+      />
 
       <Form autoSave="true" id="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
         {/* 회원 정보 */}
@@ -135,11 +143,29 @@ export default SignInForm;
 
 const SignInWrapper = styled.div`
   margin: 0 20px;
-  
+
+  .back-button {
+    display: block;
+    margin-bottom: 5rem;
+
+    font-size: 3rem;
+    text-decoration: none;
+  }
+
+  .sign-in-error {
+    font-size: 2rem;
+    color: ${(p) => p.theme.errorColor};
+  }
 `;
 
 const Form = styled.form`
   input {
     display: block;
+    width: 60vw;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+
+    color: ${(p) => p.theme.subFont};
+    border-radius: ${(p) => p.theme.borderRadius};
   }
 `;

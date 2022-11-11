@@ -6,7 +6,7 @@ import Menu from "../routes/Menu";
 import Remittance from "../routes/Remittance";
 import Root from "../routes/Root";
 import { ThemeProvider } from "styled-components";
-import SignInForm from "./SignInForm";
+import SignInForm from "../routes/SignIn";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../firebaseApp";
@@ -15,6 +15,7 @@ import { theme } from "../themes";
 import GlobalStyle from "../styles/GlobalStyle.style";
 import { userAuthState, userState } from "../recoil_state";
 import Loading from "./Loading";
+import LogInForm from "./LogInForm";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,12 @@ const router = createBrowserRouter([
       {
         path: "auth",
         element: <Auth />,
+        children: [
+          {
+            path: "logIn",
+            element: <LogInForm />,
+          },
+        ],
       },
       {
         path: "signIn",
@@ -77,11 +84,11 @@ function AppRouter() {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        {init ? (
-          <RouterProvider router={router} />
+        <RouterProvider router={router} />
+        {/* {init ? (
         ) : (
           <Loading text="제로부기에 오신 것을 환영합니다!" />
-        )}
+        )} */}
       </ThemeProvider>
     </>
   );

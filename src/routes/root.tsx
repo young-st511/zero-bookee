@@ -5,29 +5,38 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { userAuthState } from "../recoil_state";
 import Auth from "./Auth";
+import Test from "../Test";
 
 function Root() {
   const isLoggedin = useRecoilValue(userAuthState);
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (isLoggedin) {
-    if (location.pathname === "/") {
-      navigate("/assets");
-    }
-  }
+  useEffect(() => {
+    // if (isLoggedin) {
+    //   if (location.pathname === "/") {
+    //     navigate("/assets");
+    //   }
+    // } else if (!location.pathname.startsWith("/auth")) {
+    //   navigate("/auth");
+    // }
+  }, [isLoggedin, location.pathname, navigate]);
 
   return (
     <StyledWrapper>
-      {isLoggedin ? (
-        <div className="outlet">
-          <Outlet />
+      <div className="outlet">
+        <Outlet />
+      </div>
+      {/* {isLoggedin ? (
+        <>
+          <div className="outlet">
+            <Outlet />
+          </div>
           <Navigation />
-        </div>
+        </>
       ) : (
         <Auth />
-      )}
-
+      )} */}
     </StyledWrapper>
   );
 }
@@ -35,5 +44,7 @@ function Root() {
 export default Root;
 
 const StyledWrapper = styled.div`
-  padding: 20px 20px;
+  .outlet {
+    padding: 5vw;
+  }
 `;

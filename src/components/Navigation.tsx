@@ -65,13 +65,15 @@ const StyledWrapper = styled.nav`
     justify-content: space-between;
     margin: 0 2rem;
     list-style: none;
-    li {
+    li a {
+      box-sizing: border-box;
       margin: 0 1rem;
+      padding: 1rem 2rem;
 
-      .pending {
+      &.pending {
         color: ${(p) => p.theme.colors.main};
       }
-      .active {
+      &.active {
         background-color: ${(p) => p.theme.colors.main};
       }
     }
