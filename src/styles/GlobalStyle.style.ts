@@ -6,8 +6,10 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-family: SUIT;
     font-weight: 500;
+    line-height: 1.2;
     color: ${({ theme }) => theme.fontColor};
     font-size: 1.6rem;
+    transition: all 0.2s ease-in-out;
   }
   body {
     margin: 0;
