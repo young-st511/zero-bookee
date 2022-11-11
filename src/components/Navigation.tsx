@@ -56,17 +56,24 @@ const StyledWrapper = styled.nav`
   position: fixed;
   bottom: 0;
   width: 390px;
-
-  padding: 20px 0;
+  padding: 2rem 0;
 
   background-color: ${(p) => p.theme.colors.sub};
 
   ul {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    margin: 0 2rem;
     list-style: none;
     li {
-      margin: 0 10px;
+      margin: 0 1rem;
+
+      .pending {
+        color: ${(p) => p.theme.colors.main};
+      }
+      .active {
+        background-color: ${(p) => p.theme.colors.main};
+      }
     }
   }
 `;

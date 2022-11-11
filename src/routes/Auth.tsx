@@ -10,18 +10,23 @@ function Auth() {
   const [isLogInPage, setIsLogInPage] = useState(false);
   return (
     <StyledWrapper>
+      <h2 className="welcome">제로부기에 오신 것을 환영합니다!</h2>
       {isLogInPage ? (
         <>
           <LogInForm setIsLogInPage={setIsLogInPage} />
         </>
       ) : (
         <>
-          <Welcome setIsLogInPage={setIsLogInPage} />
+          <div>
+            <button className="to-log-in" onClick={() => setIsLogInPage(true)}>
+              제로부기 아이디로 로그인
+            </button>
+          </div>
         </>
       )}
-      <h3>SNS로 시작하기</h3>
+      
       <StartWithSNS />
-      <Link to={"../signIn"}>제로부기 아이디 만들기</Link>
+
     </StyledWrapper>
   );
 }
@@ -29,9 +34,14 @@ function Auth() {
 export default Auth;
 
 const StyledWrapper = styled.div`
-  h2,
-  h3 {
-    font-size: 20px;
-    font-weight: 600;
+  h2.welcome {
+    margin-bottom: 1rem;
   }
+  .to-log-in {
+    padding: 0 0.1rem;
+    background: none;
+    text-decoration: underline;
+  }
+
+
 `;

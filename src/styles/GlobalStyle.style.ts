@@ -6,7 +6,8 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-family: SUIT;
     font-weight: 500;
-    color: ${({ theme }) => theme.fontColor}
+    color: ${({ theme }) => theme.fontColor};
+    font-size: 1.6rem;
   }
   body {
     margin: 0;
@@ -18,22 +19,21 @@ const GlobalStyle = createGlobalStyle`
     border: none;
   }
   h1 {
-    font-size: 30px;
+    font-size: 3rem;
     font-weight: 700;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 2.6rem;
     font-weight: 700;
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 2rem;
     font-weight: 600;
   }
-
-  .outlet {
-    margin: 0px 20px;
+  .back-button {
+    font-feature-settings: "ss18";
   }
 `;
 

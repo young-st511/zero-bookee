@@ -5,7 +5,7 @@ export default function Loading({ text }: { text: string }) {
   return (
     <Background>
       <LoadingText>{text}</LoadingText>
-      <img src={spinner} alt="로딩 중" width="5%" />
+      <img src={spinner} alt="로딩 중" width="25%" />
     </Background>
   );
 }
@@ -25,6 +25,8 @@ const Background = styled.div`
 `;
 
 const LoadingText = styled.p`
-  font: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
+  margin-bottom: 20px;
 `;

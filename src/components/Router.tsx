@@ -10,10 +10,10 @@ import SignInForm from "./SignInForm";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../firebaseApp";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { theme } from "../themes";
 import GlobalStyle from "../styles/GlobalStyle.style";
-import { userAuthState } from "../recoil_state";
+import { userAuthState, userState } from "../recoil_state";
 import Loading from "./Loading";
 
 const router = createBrowserRouter([
@@ -51,8 +51,8 @@ const router = createBrowserRouter([
 
 function AppRouter() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userAuthState);
-  const [userObj, setUserObj] = useState<User | null>(null);
+  const setIsLoggedIn = useSetRecoilState(userAuthState);
+  const setUserState = useSetRecoilState<User | null>(userState);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -61,17 +61,17 @@ function AppRouter() {
         console.log(user, "onAuth");
 
         setIsLoggedIn(true);
-        setUserObj(user);
+        setUserState(user);
       } else {
         //! Test
         console.log("user signed out");
 
-        setUserObj(null);
+        setUserState(null);
         setIsLoggedIn(false);
       }
       setInit(true);
     });
-  }, [setIsLoggedIn]);
+  }, [setIsLoggedIn, setUserState]);
 
   return (
     <>

@@ -11,7 +11,7 @@ export const theme: DefaultTheme = {
     main: "rgb(54, 35, 183)", //- #3623b7
     sub: "rgb(3, 203, 231)", //- #03cbe7
   },
-  borderRadius: "1rem",
+  borderRadius: "1.5rem",
   fontColor: "#FFFFFF",
 };
 

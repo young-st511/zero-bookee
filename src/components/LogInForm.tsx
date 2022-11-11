@@ -32,36 +32,75 @@ function LogInForm({ setIsLogInPage }: Props) {
       <button onClick={() => setIsLogInPage(false)} className="back-button">
         {"←"}
       </button>
-      <h2>Log In</h2>
+
       <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          required={true}
-          onChange={handleIDChange}
-          value={iD}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required={true}
-          onChange={handlePWChange}
-          value={password}
-        />
-        <input type="submit" value="Log in" />
+        <h2>Welcome back!</h2>
+        <div className="login-input">
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            required={true}
+            onChange={handleIDChange}
+            value={iD}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required={true}
+            onChange={handlePWChange}
+            value={password}
+          />
+        </div>
+        <input className="login-submit" type="submit" value="Log in" />
       </form>
-      
     </StyledWrapper>
   );
 }
 
-export default LogInForm;``
+export default LogInForm;
 
 const StyledWrapper = styled.section`
-  button.back-button {
-    font-feature-settings: "ss18";
-    
+  .back-button {
+    font-weight: 900;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem 3rem;
+    margin-top: 15rem;
+
+    h2 {
+      margin-bottom: 2rem;
+    }
+
+    .login-input input {
+      width: 24rem;
+      height: 3rem;
+      margin: 0.4rem 0;
+      padding: 0.5rem 1rem;
+      color: #262626;
+      border: none;
+      border-radius: 1rem;
+    }
+    .login-submit {
+      align-self: flex-end;
+      margin-top: 2rem;
+      margin-right: 3rem;
+      padding: 0.6rem 1.2rem;
+      background-color: ${(p) => p.theme.colors.sub};
+      border: none;
+      border-radius: ${(p) => p.theme.borderRadius};
+
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+  }
+
+  button {
+    background: none;
+    font-size: 2rem;
   }
 `;

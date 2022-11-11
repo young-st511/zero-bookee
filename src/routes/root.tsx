@@ -22,12 +22,12 @@ function Root() {
       {isLoggedin ? (
         <div className="outlet">
           <Outlet />
+          <Navigation />
         </div>
       ) : (
         <Auth />
       )}
 
-      <Navigation />
     </StyledWrapper>
   );
 }
@@ -35,5 +35,5 @@ function Root() {
 export default Root;
 
 const StyledWrapper = styled.div`
-  padding: 20px 0px;
+  padding: 20px 20px;
 `;
