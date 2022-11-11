@@ -21,7 +21,7 @@ function LogInForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault;
+    e.preventDefault();
     try {
       if (iD != "" && password != "") {
         const data = await signInWithEmailAndPassword(auth, iD, password);
