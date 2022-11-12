@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserInfoType from "../types/userInfoType";
-import { auth } from "../firebaseApp";
+import { auth, db } from "../firebaseApp";
 import { createUserWithEmailAndPassword as createUser } from "firebase/auth";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -27,18 +28,40 @@ function SignInForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<UserInfoType>();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<UserInfoType> = async (userInfo) => {
-    console.log(userInfo);
+  const onSubmit: SubmitHandler<UserInfoType> = async (userInfoArg) => {
+    console.log(userInfoArg);
+    const userInfo = { ...userInfoArg };
 
     try {
-      const data = await createUser(
-        auth,
-        userInfo.userEmail,
-        userInfo.userPassword
-      );
+      if (!userInfoArg.userPassword) {
+        throw new Error("비밀번호가 없습니다");
+      }
+      // const data = await createUser(
+      //   auth,
+      //   userInfoArg.userEmail,
+      //   userInfoArg.userPassword
+      // );
+
+      // delete userInfo.userPassword;
+      const data = auth
+      console.log("user", data);
+      console.log("userInfo", userInfo);
+
+      const uid = data.user.uid;
+
+      console.log(uid);
+
+      const docRef = await setDoc(doc(db, "UserInfo", "uid"), {
+        rInfo: "dfdf",
+      });
+
       //! Test
-      console.log(data);
+      console.log("docRef", docRef);
+      ////
+
+      navigate("/assets");
     } catch (err) {
       if (err) {
         const error = err as Error;
@@ -88,7 +111,7 @@ function SignInForm() {
       {/* {isNaver && <div>Naver 아이디와 연동</div>} */}
 
       {/* 파이어베이스 에러 */}
-      {error && <p className="sign-in-error">Err: {error}</p>}
+      {error && <p className="signin-error">Err: {error}</p>}
 
       <Form autoSave="true" id="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
         {/* 회원 정보 */}
@@ -103,7 +126,7 @@ function SignInForm() {
         <Input label="직급" id={"position"} />
 
         {/* 회사 정보 */}
-        <Input label="회사명" id={"companyName"} required={true} />
+        {/* <Input label="회사명" id={"companyName"} required={true} />
         <Input label="사업자등록번호" id={"businessNumber"} required={true} />
         <Input label="회사주소" id={"companyAdress"} required={true} />
         <Input label="사업자 구분" id={"ownership"} required={true} />
@@ -133,7 +156,7 @@ function SignInForm() {
           label="광고성 메일 수신 동의"
           id={"recievingAdAgree"}
           required={true}
-        />
+        /> */}
 
         <input type="submit" value="제출" />
       </Form>
@@ -144,7 +167,8 @@ function SignInForm() {
 export default SignInForm;
 
 const SignInWrapper = styled.div`
-  margin: 0 20px;
+  margin: 0 2rem;
+  padding-bottom: 3rem;
 
   .back-button {
     display: block;
@@ -154,8 +178,13 @@ const SignInWrapper = styled.div`
     text-decoration: none;
   }
 
-  .sign-in-error {
-    font-size: 2rem;
+  .signin-error {
+    width: calc(60vw + 4rem);
+    margin: 0.5rem auto 0 auto;
+    padding: 0;
+
+    font-size: 1.4rem;
+    font-weight: 600;
     color: ${(p) => p.theme.errorColor};
   }
 `;
@@ -171,15 +200,5 @@ const Form = styled.form`
     background-color: #fefefe;
     border: none;
     border-radius: ${(p) => p.theme.borderRadius};
-  }
-
-  .signin-error {
-    width: calc(60vw + 4rem);
-    margin: 0.5rem auto 0 auto;
-    padding: 0;
-
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: ${(p) => p.theme.errorColor};
   }
 `;

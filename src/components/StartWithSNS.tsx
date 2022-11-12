@@ -34,11 +34,11 @@ function StartWithSNS() {
     <StartWithSNSWrapper isLogin={isLoginPage}>
       <h3 className="startSNS">SNS로 시작하기</h3>
       <div className="sns">
-        <button name="google" className="start-google" onClick={handleSNSClick}>
+        <button name="google" className="start-sns" onClick={handleSNSClick}>
           Start with Google
         </button>
 
-        <button name="naver" className="start-google" onClick={handleSNSClick}>
+        <button name="naver" className="start-sns" onClick={handleSNSClick}>
           Start with Naver
         </button>
 
@@ -74,7 +74,8 @@ const StartWithSNSWrapper = styled.div<styleProps>`
     flex-direction: column;
     margin: 3rem 0;
     padding: 1rem 3rem;
-    button {
+
+    button.start-sns {
       margin: 1rem 2rem;
       padding: 1rem 1rem;
       border-radius: ${({ theme }) => theme.borderRadius};

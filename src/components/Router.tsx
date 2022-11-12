@@ -61,7 +61,7 @@ function AppRouter() {
         console.log(user, "onAuth");
 
         setIsLoggedIn(true);
-        setUserState(user);
+        setUserState({...user});
       } else {
         //! Test
         console.log("user signed out");

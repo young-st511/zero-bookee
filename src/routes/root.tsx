@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { userAuthState } from "../recoil_state";
-import Auth from "./Auth";
 
 function Root() {
   const isLoggedin = useRecoilValue(userAuthState);

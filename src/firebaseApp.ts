@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -18,5 +19,7 @@ export const firebaseApp = initializeApp(firebaseConfig);
 
 export const auth = getAuth(firebaseApp);
 // const firebaseAnalytics = getAnalytics(app);
+
+export const db = getFirestore(firebaseApp);
 
 export default firebaseApp;

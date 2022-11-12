@@ -1,5 +1,13 @@
+import { signOut } from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { auth } from "../firebaseApp";
+
+const userSignOut = async () => {
+  console.log(auth);
+  await signOut(auth);
+  // console.log(auth);
+};
 
 function Navigation() {
   return (
@@ -45,6 +53,9 @@ function Navigation() {
             {"메뉴"}
           </NavLink>
         </li>
+        <li>
+          <button onClick={userSignOut}>{"Out"}</button>
+        </li>
       </ul>
     </StyledWrapper>
   );
@@ -65,16 +76,19 @@ const StyledWrapper = styled.nav`
     justify-content: space-between;
     margin: 0 2rem;
     list-style: none;
-    li a {
+    li a,
+    li button {
+      display: block;
       box-sizing: border-box;
       margin: 0 1rem;
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
 
       &.pending {
         color: ${(p) => p.theme.colors.main};
       }
+      background-color: ${(p) => p.theme.colors.main};
       &.active {
-        background-color: ${(p) => p.theme.colors.main};
       }
     }
   }
