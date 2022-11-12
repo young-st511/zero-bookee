@@ -8,8 +8,7 @@ import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { FirebaseError } from "firebase/app";
-
-
+import Input from "../components/common/FormInput";
 
 // type SignInFormType = { isNaver: boolean };
 
@@ -58,7 +57,7 @@ function SignInForm() {
   };
 
   //# Input 컴포넌트
-  
+
   ////
 
   return (
