@@ -11,14 +11,12 @@ function Root() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const path = location.pathname;
     if (isLoggedin) {
-      if (location.pathname === "/") {
+      if (path === "/" || path === "/auth" || path === "/signIn") {
         navigate("/assets");
       }
-    } else if (
-      location.pathname !== "/auth" &&
-      location.pathname !== "/signIn"
-    ) {
+    } else if (path !== "/auth" && path !== "/signIn") {
       navigate("/auth");
     }
   }, [isLoggedin, location.pathname, navigate]);

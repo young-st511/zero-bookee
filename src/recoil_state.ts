@@ -6,14 +6,14 @@ const logInPageState = atom({
   default: false,
 });
 
-const userAuthState = atom({
+const userAuthState = atom<string | null>({
   key: "userAuthState",
-  default: false,
-});
-
-const userState = atom<User | null>({
-  key: "userState",
   default: null,
 });
 
-export { logInPageState, userState, userAuthState };
+// const userState = atom<User | null>({
+//   key: "userState",
+//   default: null,
+// });
+
+export { logInPageState, userAuthState };

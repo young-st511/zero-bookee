@@ -38,28 +38,19 @@ function SignInForm() {
       if (!userInfoArg.userPassword) {
         throw new Error("비밀번호가 없습니다");
       }
-      // const data = await createUser(
-      //   auth,
-      //   userInfoArg.userEmail,
-      //   userInfoArg.userPassword
-      // );
+      const data = await createUser(
+        auth,
+        userInfoArg.userEmail,
+        userInfoArg.userPassword
+      );
 
-      // delete userInfo.userPassword;
-      const data = auth
+      delete userInfo.userPassword;
       console.log("user", data);
       console.log("userInfo", userInfo);
 
       const uid = data.user.uid;
 
-      console.log(uid);
-
-      const docRef = await setDoc(doc(db, "UserInfo", "uid"), {
-        rInfo: "dfdf",
-      });
-
-      //! Test
-      console.log("docRef", docRef);
-      ////
+      await setDoc(doc(db, "UserInfo", uid), userInfo);
 
       navigate("/assets");
     } catch (err) {
@@ -126,7 +117,7 @@ function SignInForm() {
         <Input label="직급" id={"position"} />
 
         {/* 회사 정보 */}
-        {/* <Input label="회사명" id={"companyName"} required={true} />
+        <Input label="회사명" id={"companyName"} required={true} />
         <Input label="사업자등록번호" id={"businessNumber"} required={true} />
         <Input label="회사주소" id={"companyAdress"} required={true} />
         <Input label="사업자 구분" id={"ownership"} required={true} />
@@ -156,7 +147,7 @@ function SignInForm() {
           label="광고성 메일 수신 동의"
           id={"recievingAdAgree"}
           required={true}
-        /> */}
+        />
 
         <input type="submit" value="제출" />
       </Form>

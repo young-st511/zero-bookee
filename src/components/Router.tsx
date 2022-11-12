@@ -13,7 +13,7 @@ import { auth } from "../firebaseApp";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { theme } from "../themes";
 import GlobalStyle from "../styles/GlobalStyle.style";
-import { userAuthState, userState } from "../recoil_state";
+import { userAuthState } from "../recoil_state";
 import Loading from "./Loading";
 
 const router = createBrowserRouter([
@@ -52,7 +52,6 @@ const router = createBrowserRouter([
 function AppRouter() {
   const [init, setInit] = useState(false);
   const setIsLoggedIn = useSetRecoilState(userAuthState);
-  const setUserState = useSetRecoilState<User | null>(userState);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -60,18 +59,16 @@ function AppRouter() {
         //! Test
         console.log(user, "onAuth");
 
-        setIsLoggedIn(true);
-        setUserState({...user});
+        setIsLoggedIn(user.uid);
       } else {
         //! Test
         console.log("user signed out");
 
-        setUserState(null);
-        setIsLoggedIn(false);
+        setIsLoggedIn(null);
       }
       setInit(true);
     });
-  }, [setIsLoggedIn, setUserState]);
+  }, [setIsLoggedIn]);
 
   return (
     <>
