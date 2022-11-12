@@ -14,10 +14,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     align-items: center;
-    background-color: ${(props) => props.theme.colors.main};
+    background-color: ${(props) => props.theme.colors.background};
   }
   button {
-    background-color: ${({ theme }) => theme.colors.sub};
+    background-color: ${({ theme }) => theme.colors.main};
     border: none;
   }
   h1 {

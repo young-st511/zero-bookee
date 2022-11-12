@@ -7,14 +7,9 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { FirebaseError } from "firebase/app";
 
-type InputProps = {
-  id: keyof UserInfoType;
-  label: string;
-  required?: boolean;
-  options?: { [key: string]: string };
-  type?: string;
-};
+
 
 // type SignInFormType = { isNaver: boolean };
 
@@ -55,42 +50,15 @@ function SignInForm() {
       navigate("/assets");
     } catch (err) {
       if (err) {
-        const error = err as Error;
-        setError(error.message);
+        const error = err as FirebaseError;
+        setError(error.code);
         console.log(error.message);
       }
     }
   };
 
   //# Input 컴포넌트
-  const Input = ({ id, label, required, options, type }: InputProps) => {
-    return (
-      <>
-        <input
-          {...register(id, {
-            ...options,
-            required: required ? "필수 요소 입니다" : false,
-          })}
-          placeholder={label}
-          type={type || "text"}
-        />
-        <ErrorMessage
-          name={id}
-          errors={errors}
-          render={
-            ({ message }) => (
-              <p key={"error"} className={"signin-error"}>
-                {message}
-              </p>
-            )
-            // messages &&
-            // Object.entries(messages).map(([type, message]) => (
-            //   <p key={type}>{message}</p>)
-          }
-        />
-      </>
-    );
-  };
+  
   ////
 
   return (
@@ -149,6 +117,8 @@ function SignInForm() {
           required={true}
         />
 
+        {/* 파이어베이스 에러 */}
+        {error && <p className="signin-error">Err: {error}</p>}
         <input type="submit" value="제출" />
       </Form>
     </SignInWrapper>

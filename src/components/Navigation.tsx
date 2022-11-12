@@ -69,7 +69,7 @@ const StyledWrapper = styled.nav`
   width: 390px;
   padding: 2rem 0;
 
-  background-color: ${(p) => p.theme.colors.sub};
+  background-color: ${(p) => p.theme.colors.main};
 
   ul {
     display: flex;
@@ -85,10 +85,10 @@ const StyledWrapper = styled.nav`
       font-size: 1rem;
 
       &.pending {
-        color: ${(p) => p.theme.colors.main};
+        color: ${(p) => p.theme.colors.sub};
       }
-      background-color: ${(p) => p.theme.colors.main};
       &.active {
+        border: 1px solid ${(p) => p.theme.colors.point};
       }
     }
   }

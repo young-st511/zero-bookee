@@ -8,12 +8,14 @@ import { DefaultTheme } from "styled-components";
 
 export const theme: DefaultTheme = {
   colors: {
-    main: "rgb(54, 35, 183)", //- #3623b7
-    sub: "rgb(3, 203, 231)", //- #03cbe7
+    background: "#e6e6e6",
+    main: "#fefefe",
+    sub: "rgb(54, 35, 183)", //- #3623b7
+    point: "rgb(3, 203, 231)", //- #03cbe7
   },
   borderRadius: "1.5rem",
-  fontColor: "#fefefe",
-  subFont: "#262626",
+  fontColor: "#262626",
+  subFont: "#fefefe",
   errorColor: "#EB3F06",
   shadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
 };
@@ -22,7 +24,9 @@ declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       main: string;
+      background: string;
       sub: string;
+      point: string;
     };
     borderRadius: string;
     fontColor: string;
