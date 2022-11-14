@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
 import Assets from "../routes/Assets";
 import Auth from "../routes/Auth";
 import Books from "../routes/Books";
@@ -46,6 +50,10 @@ const router = createBrowserRouter([
         element: <Menu />,
       },
     ],
+  },
+  {
+    path: "/*",
+    loader: () => redirect("/"),
   },
 ]);
 

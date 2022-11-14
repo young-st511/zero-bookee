@@ -124,7 +124,7 @@ const StyledWrapper = styled.section<StyledProp>`
       align-self: center;
       margin-top: 2rem;
       padding: 0.8rem 1.6rem;
-      background-color: ${(p) => p.theme.colors.sub};
+      background-color: ${(p) => p.theme.colors.main};
       border: none;
       border-radius: ${(p) => p.theme.borderRadius};
 

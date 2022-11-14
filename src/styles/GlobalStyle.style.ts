@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     background-color: ${(props) => props.theme.colors.background};
   }
-  button {
+  button, input {
     background-color: ${({ theme }) => theme.colors.main};
     border: none;
   }

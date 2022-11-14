@@ -10,10 +10,12 @@ function Root() {
   const location = useLocation();
   const navigate = useNavigate();
 
+
+  //TODO signIn 페이지 처리!!
   useEffect(() => {
     const path = location.pathname;
     if (isLoggedin) {
-      if (path === "/" || path === "/auth" || path === "/signIn") {
+      if (path === "/" || path === "/auth") {
         navigate("/assets");
       }
     } else if (path !== "/auth" && path !== "/signIn") {

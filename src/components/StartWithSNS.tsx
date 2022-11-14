@@ -1,13 +1,15 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import React, { ButtonHTMLAttributes } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { auth } from "../firebaseApp";
+import { auth, db } from "../firebaseApp";
 import { logInPageState } from "../recoil_state";
 
 function StartWithSNS() {
   const isLoginPage = useRecoilValue(logInPageState);
+  const navigate = useNavigate();
 
   const handleSNSClick = async ({
     currentTarget: target,
@@ -22,12 +24,20 @@ function StartWithSNS() {
         break;
     }
     if (!provider) {
-      console.log("SNS 버튼 오류 발생!");
+      console.error("SNS 버튼 오류 발생!");
       return;
     }
-    const data = await signInWithPopup(auth, provider);
+    const { user } = await signInWithPopup(auth, provider);
     //! Test
-    console.log(data);
+    console.log("user", user);
+
+    const userDoc = await getDoc(doc(db, `UserInfo/${user.uid}`)).then((res) =>
+      res.data()
+    );
+
+    if (!userDoc) {
+      navigate("/signIn");
+    }
   };
 
   return (

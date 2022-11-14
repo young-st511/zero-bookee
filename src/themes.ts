@@ -14,7 +14,7 @@ export const theme: DefaultTheme = {
     point: "rgb(3, 203, 231)", //- #03cbe7
   },
   borderRadius: "1.5rem",
-  fontColor: "#262626",
+  fontColor: "#161616",
   subFont: "#fefefe",
   errorColor: "#EB3F06",
   shadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
