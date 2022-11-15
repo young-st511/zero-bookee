@@ -1,5 +1,13 @@
+import styled from "styled-components";
+
 function AssetAccount() {
-  return <div></div>;
+  return <StyledAccount>
+    
+  </StyledAccount>;
 }
 
 export default AssetAccount;
+
+const StyledAccount = styled.div`
+
+`

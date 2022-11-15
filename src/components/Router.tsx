@@ -11,15 +11,17 @@ import Remittance from "../routes/Remittance";
 import Root from "../routes/Root";
 import { ThemeProvider } from "styled-components";
 import SignInForm from "../routes/SignIn";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { auth } from "../firebaseApp";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { auth, db } from "../firebaseApp";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { theme } from "../themes";
 import GlobalStyle from "../styles/GlobalStyle.style";
-import { userAuthState } from "../recoil_state";
+import { userAuthState, userState } from "../recoil_state";
 import Loading from "./Loading";
 import AddAccount from "../routes/AddAccount";
+import { collection, doc, onSnapshot } from "firebase/firestore";
+import UserInfoType from "../types/userInfoType";
 
 const router = createBrowserRouter([
   {
@@ -64,24 +66,40 @@ const router = createBrowserRouter([
 
 function AppRouter() {
   const [init, setInit] = useState(false);
-  const setIsLoggedIn = useSetRecoilState(userAuthState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userAuthState);
+  const setUserInfo = useSetRecoilState(userState);
+  const userInfo = useRecoilValue(userState);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
+      // setInit(false);
       if (user) {
-        //! Test
-        console.log(user, "onAuth");
-
         setIsLoggedIn(user.uid);
+        //! Test
+        console.log("onAuth", user);
+        console.log("Set", userInfo);
       } else {
         //! Test
         console.log("user signed out");
 
         setIsLoggedIn(null);
       }
-      setInit(true);
+      // setInit(true);
     });
-  }, [setIsLoggedIn]);
+
+    onSnapshot(doc(db, `UserInfo/${auth.currentUser?.uid}`), (snapshot) => {
+      setInit(false);
+      setUserInfo(snapshot.data() as UserInfoType);
+
+      setInit(true);
+
+      if (isLoggedIn === null) {
+        console.log("unsub");
+        return;
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   return (
     <>

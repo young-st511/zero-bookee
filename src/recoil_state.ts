@@ -1,5 +1,5 @@
-import { User } from "firebase/auth";
 import { atom } from "recoil";
+import UserInfoType from "./types/userInfoType";
 
 const logInPageState = atom({
   key: "logInPageState",
@@ -11,9 +11,9 @@ const userAuthState = atom<string | null>({
   default: null,
 });
 
-// const userState = atom<User | null>({
-//   key: "userState",
-//   default: null,
-// });
+const userState = atom<UserInfoType | null>({
+  key: "userState",
+  default: null,
+});
 
-export { logInPageState, userAuthState };
+export { userState, logInPageState, userAuthState };

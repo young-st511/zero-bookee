@@ -5,7 +5,7 @@ interface AccountType {
   accountNumber: number;
   bank: string;
   balance: number;
-  lastTrade: TransactionType;
+  lastTradeID: string;
   transactionsID: string;
 }
 

@@ -15,8 +15,13 @@ function AddAccountForm() {
   const { register, handleSubmit, formState } = useForm<AccountType>();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<AccountType> = async (accountInfo) => {
+  const onSubmit: SubmitHandler<AccountType> = async (accountInfoArg) => {
     setError("");
+    const accountInfo: AccountType = {
+      ...accountInfoArg,
+      balance: 0,
+      lastTradeID: "",
+    };
 
     try {
       const uid = auth.currentUser?.uid;
