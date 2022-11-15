@@ -87,17 +87,20 @@ function AppRouter() {
       // setInit(true);
     });
 
-    onSnapshot(doc(db, `UserInfo/${auth.currentUser?.uid}`), (snapshot) => {
-      setInit(false);
-      setUserInfo(snapshot.data() as UserInfoType);
+    const unSub = onSnapshot(
+      doc(db, `UserInfo/${auth.currentUser?.uid}`),
+      (snapshot) => {
+        setInit(false);
+        setUserInfo(snapshot.data() as UserInfoType);
 
-      setInit(true);
-
-      if (isLoggedIn === null) {
-        console.log("unsub");
-        return;
+        setInit(true);
       }
-    });
+    );
+
+    if (isLoggedIn === null) {
+      console.log("unsub");
+      unSub();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
