@@ -18,6 +18,7 @@ export const theme: DefaultTheme = {
   subFont: "#fefefe",
   errorColor: "#EB3F06",
   shadow: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+  navHight: "8rem",
 };
 
 declare module "styled-components" {
@@ -33,5 +34,6 @@ declare module "styled-components" {
     subFont: string;
     errorColor: string;
     shadow: string;
+    navHight: string;
   }
 }

@@ -19,6 +19,7 @@ import { theme } from "../themes";
 import GlobalStyle from "../styles/GlobalStyle.style";
 import { userAuthState } from "../recoil_state";
 import Loading from "./Loading";
+import AddAccount from "../routes/AddAccount";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "assets",
         element: <Assets />,
+      },
+      {
+        path: "assets/add",
+        element: <AddAccount />,
       },
       {
         path: "books",

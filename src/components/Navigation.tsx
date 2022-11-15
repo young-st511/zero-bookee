@@ -65,8 +65,13 @@ export default Navigation;
 
 const StyledWrapper = styled.nav`
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 0;
-  width: 390px;
+  min-width: 390px;
+  height: ${(p) => p.theme.navHight};
+  box-sizing: border-box;
   padding: 2rem 0;
 
   background-color: ${(p) => p.theme.colors.main};
@@ -80,9 +85,9 @@ const StyledWrapper = styled.nav`
     li button {
       display: block;
       box-sizing: border-box;
-      margin: 0 1rem;
+      margin: 0 0.5rem;
       padding: 1rem 1.5rem;
-      font-size: 1rem;
+      font-size: 1.5rem;
 
       &.pending {
         color: ${(p) => p.theme.colors.sub};

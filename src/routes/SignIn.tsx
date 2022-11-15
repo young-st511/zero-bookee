@@ -6,7 +6,6 @@ import { createUserWithEmailAndPassword as createUser } from "firebase/auth";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { FirebaseError } from "firebase/app";
 import Input from "../components/common/FormInput";
 
@@ -15,10 +14,8 @@ import Input from "../components/common/FormInput";
 //! React Hook Form 적용할 것!!
 //TODO 이미 있는 아이디일 경우 바로 로그인하기
 function SignInForm() {
-  const [userInfo, setUserInfo] = useState<UserInfoType>({} as UserInfoType);
   const [error, setError] = useState("");
   const {
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserInfoType>();
