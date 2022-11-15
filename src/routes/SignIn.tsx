@@ -156,7 +156,7 @@ const Form = styled.form`
     margin: 2rem auto 0 auto;
     padding: 1.5rem 2rem;
 
-    color: ${(p) => p.theme.subFont};
+    color: ${(p) => p.theme.fontColor};
     background-color: #fefefe;
     border: none;
     border-radius: ${(p) => p.theme.borderRadius};
