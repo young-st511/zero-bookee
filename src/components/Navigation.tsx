@@ -76,6 +76,8 @@ const StyledWrapper = styled.nav`
 
   background-color: ${(p) => p.theme.colors.main};
 
+  z-index: 10;
+
   ul {
     display: flex;
     justify-content: space-between;
