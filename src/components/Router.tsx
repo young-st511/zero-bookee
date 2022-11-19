@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <Books />,
       },
       {
-        path: "remittance",
+        path: "remittance/:accountID",
         element: <Remittance />,
       },
       {
@@ -71,26 +71,28 @@ function AppRouter() {
   const userInfo = useRecoilValue(userState);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
       // setInit(false);
       if (user) {
         setIsLoggedIn(user.uid);
         //! Test
         console.log("onAuth", user);
-        console.log("Set", userInfo);
       } else {
         //! Test
         console.log("user signed out");
 
         setIsLoggedIn(null);
       }
-      // setInit(true);
+      setInit(true);
     });
 
     const unSub = onSnapshot(
       doc(db, `UserInfo/${auth.currentUser?.uid}`),
       (snapshot) => {
+        //! Test
         setInit(false);
+        console.log("Set", userInfo);
+
         setUserInfo(snapshot.data() as UserInfoType);
 
         setInit(true);

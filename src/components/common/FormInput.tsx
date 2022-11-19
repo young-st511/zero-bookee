@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
-import { useForm } from "react-hook-form";
+import { FormState, useForm, UseFormRegister } from "react-hook-form";
 import UserInfoType from "../../types/userInfoType";
 
 type InputProps = {
@@ -8,13 +8,19 @@ type InputProps = {
   required?: boolean;
   options?: { [key: string]: string };
   type?: string;
+  register: UseFormRegister<UserInfoType>;
+  formState: FormState<UserInfoType>;
 };
 
-const FormInput = ({ id, label, required, options, type }: InputProps) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<UserInfoType>();
+const FormInput = ({
+  id,
+  label,
+  required,
+  options,
+  type,
+  register,
+  formState: { errors },
+}: InputProps) => {
   return (
     <>
       <input

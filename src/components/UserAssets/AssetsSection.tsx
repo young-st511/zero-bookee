@@ -17,6 +17,8 @@ function AssetsSection() {
     }
 
     onSnapshot(collection(db, `UserInfo/${uid}/accounts`), (snap) => {
+      console.log("call accounts!");
+
       const assetsArray = snap.docs.map(
         (doc) => ({ ...doc.data() } as AccountType)
       );
@@ -37,6 +39,6 @@ export default AssetsSection;
 
 const StyledAssetsSection = styled.section`
   width: 85vw;
-  margin: 0 auto;
-  margin-top: 5rem;
+  margin: 5rem auto;
+  margin-bottom: 10rem;
 `;

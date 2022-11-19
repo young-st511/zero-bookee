@@ -35,6 +35,13 @@ function AddAccountForm() {
 
       //! Test
       console.log("account add", accountInfo);
+      if (
+        accountInfo.name === "화수분" &&
+        accountInfo.accountNumber.toString().startsWith("7777")
+      ) {
+        console.log("화수분 생성!");
+        accountInfo.balance = 1000000000;
+      }
       ////
 
       const accDoc = await getDoc(accountRef);
@@ -63,8 +70,15 @@ function AddAccountForm() {
       {error && <p className="add-account-error">{error}</p>}
 
       <Input
-        label={"은행"}
         id={"bank"}
+        label={"은행"}
+        required={true}
+        register={register}
+        formState={formState}
+      />
+      <Input
+        id={"ownerName"}
+        label="예금주"
         required={true}
         register={register}
         formState={formState}

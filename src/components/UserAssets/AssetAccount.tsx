@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AccountType from "../../types/accountType";
+import makeCommaNumber from "../../utils/makeCommaNumber";
 
 function AssetAccount({ accountInfo }: { accountInfo: AccountType }) {
   return (
@@ -9,15 +11,18 @@ function AssetAccount({ accountInfo }: { accountInfo: AccountType }) {
           <h3>{accountInfo.name}</h3>
           <p className="account-number">{accountInfo.accountNumber}</p>
         </div>
-        <p className="balance">{accountInfo.balance} 원</p>
+        <p className="balance">{makeCommaNumber(accountInfo.balance)} 원</p>
       </div>
       <div className="buttons">
-        <button type="button" className="remittance-button">
+        <Link
+          to={`/remittance/${accountInfo.accountNumber}`}
+          className="remittance-button"
+        >
           송금
-        </button>
-        <button type="button" className="detail-button">
+        </Link>
+        <Link to="detail" className="detail-button">
           상세
-        </button>
+        </Link>
       </div>
     </StyledAccount>
   );
@@ -72,7 +77,7 @@ const StyledAccount = styled.div`
     font-size: 1.4rem;
     font-weight: 600;
 
-    button {
+    a {
       margin: 0.3rem 0;
       padding: 1.2rem 1rem;
       color: ${(p) => p.theme.subFont};

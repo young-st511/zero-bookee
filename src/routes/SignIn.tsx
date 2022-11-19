@@ -7,7 +7,7 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FirebaseError } from "firebase/app";
-import Input from "../components/common/FormInput";
+import { ErrorMessage } from "@hookform/error-message";
 
 // type SignInFormType = { isNaver: boolean };
 
@@ -16,10 +16,49 @@ import Input from "../components/common/FormInput";
 function SignInForm() {
   const [error, setError] = useState("");
   const {
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserInfoType>();
   const navigate = useNavigate();
+
+  type InputProps = {
+    id: keyof UserInfoType;
+    label: string;
+    required?: boolean;
+    options?: { [key: string]: string };
+    type?: string;
+  };
+
+  const Input = ({ id, label, required, options, type }: InputProps) => {
+    return (
+      <>
+        <input
+          {...register(id, {
+            ...options,
+            required: required ? "필수 요소 입니다" : false,
+          })}
+          placeholder={label}
+          type={type || "text"}
+        />
+        <ErrorMessage
+          name={id}
+          errors={errors}
+          render={({ message, messages }) => (
+            <>
+              <p key={"error"} className={"signin-error"}>
+                {message}
+              </p>
+              {messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <p key={type}>{message}</p>
+                ))}
+            </>
+          )}
+        />
+      </>
+    );
+  };
 
   const onSubmit: SubmitHandler<UserInfoType> = async (userInfoArg) => {
     console.log(userInfoArg);

@@ -20,7 +20,7 @@ function AddMenu() {
         id={"blind"}
         onClick={handleModalClick}
       />
-      <StyledAddAcount>
+      <StyledAddAcount className={`${active ? "active" : undefined}`}>
         <ul className={`add-menu ${active ? "active" : undefined}`}>
           <li>
             <Link to={"add"}>계좌 추가</Link>
@@ -90,12 +90,16 @@ const StyledAddAcount = styled.div`
   padding-top: 30rem;
   flex-direction: column;
   align-items: center;
-  padding: 30rem 2.5rem 2.5rem;
+  padding: 0rem 2.5rem 2.5rem;
   right: 0rem;
   bottom: ${(p) => p.theme.navHight};
   z-index: 1000;
 
   overflow: hidden;
+
+  &.active {
+    padding-top: 30rem;
+  }
 
   .add-menu {
     display: none;
