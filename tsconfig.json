@@ -19,5 +19,5 @@
     "strictNullChecks": true
   },
   "include": ["src", "public/naveridlogin_js_sdk_2.0.2.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "tsconfig.node.json" }]
 }
