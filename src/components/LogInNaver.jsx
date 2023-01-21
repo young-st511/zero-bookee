@@ -1,5 +1,8 @@
 function LogInNaver() {
   const { naver } = window;
+  //! Test
+  console.log("naver: ", naver);
+  ////
 
   window.name = "opener";
   var naverLogin = new naver.LoginWithNaverId({
@@ -18,7 +21,7 @@ function LogInNaver() {
   naverLogin.init();
 
   /* (4-1) 임의의 링크를 설정해줄 필요가 있는 경우 */
-  $("#gnbLogin").attr("href", naverLogin.generateAuthorizeUrl());
+  // $("#gnbLogin").attr("href", naverLogin.generateAuthorizeUrl());
 
   /* (5) 현재 로그인 상태를 확인 */
   window.addEventListener("load", function () {
@@ -29,6 +32,12 @@ function LogInNaver() {
       }
     });
   });
+
+  //#
+  
+
+
+
 
   /* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
   function setLoginStatus() {
