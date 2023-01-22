@@ -24,7 +24,7 @@ function AssetsSection() {
       );
       setAssets(assetsArray);
     });
-  }, []);
+  }, [uid]);
 
   return (
     <StyledAssetsSection>

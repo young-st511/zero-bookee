@@ -49,7 +49,7 @@ function Remittance() {
     });
 
     return () => unsub();
-  }, [accountID, uid]);
+  }, [accountID, uid, accDoc]);
 
   if (!account) {
     return <></>;
@@ -112,14 +112,7 @@ function Remittance() {
       <div>출금가능 {account.balance}원</div>
 
       <RemitForm onSubmit={handleSubmit(onSubmit)}>
-        {getPW ? (
-          <RemitPassword
-            getPW={getPW}
-            setGetPW={setGetPW}
-          />
-        ) : (
-          <></>
-        )}
+        {getPW ? <RemitPassword getPW={getPW} setGetPW={setGetPW} /> : <></>}
         <div className="transfer-amount">
           <Input
             {...register("amount", { required: "필수 요소 입니다" })}

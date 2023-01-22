@@ -33,6 +33,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   },
+  "ignorePatterns": ["public/naveridlogin_js_sdk_2.0.2.js", "vite.config.ts"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",

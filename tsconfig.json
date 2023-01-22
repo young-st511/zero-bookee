@@ -18,6 +18,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true
   },
-  "include": ["src", "public/naveridlogin_js_sdk_2.0.2.js"],
+  "include": ["src"],
   "references": [{ "path": "tsconfig.node.json" }]
 }
