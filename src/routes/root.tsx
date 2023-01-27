@@ -10,7 +10,6 @@ function Root() {
   const location = useLocation();
   const navigate = useNavigate();
 
-
   //TODO signIn 페이지 처리!!
   useEffect(() => {
     const path = location.pathname;
