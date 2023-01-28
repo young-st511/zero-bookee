@@ -48,9 +48,9 @@ function StartWithSNS() {
           Start with Google
         </button>
 
-        <button name="naver" className="start-sns" onClick={handleSNSClick}>
+        {/* <button name="naver" className="start-sns" onClick={handleSNSClick}>
           Start with Naver
-        </button>
+        </button> */}
 
         <Link to={"/signIn"} className="to-sign-in">
           제로부기 아이디 만들기
