@@ -1,6 +1,6 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { doc, getDoc, onSnapshot, runTransaction } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -39,23 +39,22 @@ function Remittance() {
     handleSubmit,
   } = useForm<RemitFormType>();
 
-  const accDoc = doc(db, `UserInfo/${uid}/accounts/${accountID}`);
+  const accDoc = useRef(doc(db, `UserInfo/${uid}/accounts/${accountID}`));
 
   useEffect(() => {
-    const unsub = onSnapshot(accDoc, (snapshot) => {
-      //! Test
-      console.log("remmit init", snapshot.data());
+    const unsub = onSnapshot(accDoc.current, (snapshot) => {
       setAccount(snapshot.data() as AccountType);
     });
 
     return () => unsub();
-  }, [accountID, uid, accDoc]);
+  }, [accountID, uid]);
 
   if (!account) {
     return <></>;
   }
 
   const onSubmit: SubmitHandler<RemitFormType> = async (remitData) => {
+    console.log("Submit");
     try {
       if (!checkAccount(remitData.transferAccount, remitData.transferBank)) {
         throw new Error("이체 받을 계좌가 잘못되었습니다.");
@@ -65,14 +64,16 @@ function Remittance() {
         db,
         `UserInfo/${uid}/accounts/${remitData.transferAccount}`
       );
+      console.log(targetDoc.path);
 
       await runTransaction(db, async (transaction) => {
-        const account = await transaction.get(accDoc);
+        const account = await transaction.get(accDoc.current);
         const targetAccount = await transaction.get(targetDoc);
         if (!account.exists()) {
           throw "계좌가 존재하지 않습니다.";
         }
         if (!targetAccount.exists()) {
+          console.log(targetAccount.data());
           throw "거래 대상 계좌가 존재하지 않습니다.";
         }
 
@@ -85,19 +86,25 @@ function Remittance() {
         if (remitData.amount > Number(accData.balance)) {
           throw new Error("잔액이 부족합니다.");
         }
+        console.log("Submit3");
 
         const newBalance = Number(accData.balance) - Number(remitData.amount);
         const newTargetBalance =
           Number(targetAccData.balance) + Number(remitData.amount);
 
-        transaction.update(accDoc, { balance: Number(newBalance) });
+        transaction.update(accDoc.current, { balance: Number(newBalance) });
         transaction.update(targetDoc, { balance: Number(newTargetBalance) });
       });
       alert("이체 성공!");
       navigate("/assets");
     } catch (err) {
-      const error = err as Error;
-      setError(error.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else if (typeof err === "string") {
+        setError(err);
+      } else {
+        console.error(err);
+      }
     }
   };
 

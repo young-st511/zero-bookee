@@ -15,7 +15,7 @@ function Assets() {
   return (
     <StyledAssets>
       <h1>{userInfo?.companyName}의 순자산</h1>
-      <h3>1,000,000원</h3>
+      {/* <h3>1,000,000원</h3> */}
       <AssetsSection />
       <LiabilitiesSection />
       <AddAcount />
