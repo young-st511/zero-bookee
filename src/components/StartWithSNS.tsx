@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  AuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { ButtonHTMLAttributes } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,19 +18,23 @@ function StartWithSNS() {
   const handleSNSClick = async ({
     currentTarget: target,
   }: React.PointerEvent<HTMLButtonElement>) => {
-    let provider;
+    let provider: AuthProvider | null;
+
     switch (target.name) {
       case "google":
         provider = new GoogleAuthProvider();
         break;
 
       default:
+        provider = null;
         break;
     }
+
     if (!provider) {
       console.error("SNS 버튼 오류 발생!");
       return;
     }
+    
     const { user } = await signInWithPopup(auth, provider);
     //! Test
     console.log("user", user);
